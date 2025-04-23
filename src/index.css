@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-terracotta: #E27D60;
+  --color-gold: #E8A87C;
+  --color-cream: #F2F2F2;
+  --color-brown: #4D3E3E;
+  --color-sage: #84A59D;
+}
+
+@layer base {
+  html {
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  body {
+    @apply bg-cream text-brown;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-terracotta text-white font-semibold py-3 px-6 rounded-lg
+    transform transition-all duration-300 hover:shadow-lg hover:scale-105
+    focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply bg-sage text-white font-semibold py-3 px-6 rounded-lg
+    transform transition-all duration-300 hover:shadow-lg hover:scale-105
+    focus:outline-none focus:ring-2 focus:ring-sage focus:ring-opacity-50;
+  }
+
+  .input-primary {
+    @apply bg-white border-2 border-gold rounded-lg px-4 py-3 w-full
+    focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-opacity-50
+    placeholder:text-brown/50 transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-8 w-full max-w-md mx-auto
+    border border-gold/20;
+  }
+
+  .card-title {
+    @apply text-2xl font-semibold text-brown mb-4;
+  }
+
+  .step-indicator {
+    @apply flex justify-center space-x-2 mb-6;
+  }
+
+  .step-dot {
+    @apply w-3 h-3 rounded-full transition-all duration-300;
+  }
+
+  .step-active {
+    @apply bg-terracotta w-8;
+  }
+
+  .step-completed {
+    @apply bg-gold;
+  }
+
+  .step-upcoming {
+    @apply bg-sage/30;
+  }
+}
+
+.pattern-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e27d60' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.animate-cook {
+  animation: cook 3s ease-in-out;
+}
+
+@keyframes cook {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: var(--color-cream);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-terracotta);
+  transition: width 0.5s ease-in-out;
+  border-radius: 999px;
+}
