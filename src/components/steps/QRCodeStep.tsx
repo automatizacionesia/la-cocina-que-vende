@@ -196,10 +196,17 @@ const QRCodeStep: React.FC = () => {
               <h3 className="font-semibold text-lg mb-2">iPhone</h3>
               <div className="aspect-video w-full">
                 <iframe
-                  src="https://www.loom.com/share/359f66e0144f4c6281fb0cd9495a4f65"
+                  src="https://www.loom.com/embed/aeab6cfec18445a7af93eca530846f94"
                   frameBorder="0"
                   allowFullScreen
                   className="w-full h-full rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/aeab6cfec18445a7af93eca530846f94" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
+                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
+                    e.currentTarget.parentNode.appendChild(fallback);
+                  }}
                 ></iframe>
               </div>
             </div>
@@ -209,10 +216,17 @@ const QRCodeStep: React.FC = () => {
               <h3 className="font-semibold text-lg mb-2">Android</h3>
               <div className="aspect-video w-full">
                 <iframe
-                  src="https://www.loom.com/share/359f66e0144f4c6281fb0cd9495a4f67"
+                  src="https://www.loom.com/embed/1502e1a0acb34477a0886c4684eeff57"
                   frameBorder="0"
                   allowFullScreen
                   className="w-full h-full rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/1502e1a0acb34477a0886c4684eeff57" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
+                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
+                    e.currentTarget.parentNode.appendChild(fallback);
+                  }}
                 ></iframe>
               </div>
             </div>

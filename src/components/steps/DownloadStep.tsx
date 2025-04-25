@@ -93,10 +93,17 @@ const DownloadStep: React.FC = () => {
               <h4 className="font-medium mb-2">iPhone</h4>
               <div className="aspect-video w-full">
                 <iframe
-                  src="https://www.loom.com/share/359f66e0144f4c6281fb0cd9495a4f65"
+                  src="https://www.loom.com/embed/44ab211e65ca4cb2ba2ae2f4a79ea8a6"
                   frameBorder="0"
                   allowFullScreen
                   className="w-full h-full rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/44ab211e65ca4cb2ba2ae2f4a79ea8a6" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
+                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
+                    e.currentTarget.parentNode.appendChild(fallback);
+                  }}
                 ></iframe>
               </div>
             </div>
@@ -104,10 +111,17 @@ const DownloadStep: React.FC = () => {
               <h4 className="font-medium mb-2">Android</h4>
               <div className="aspect-video w-full">
                 <iframe
-                  src="https://www.loom.com/share/359f66e0144f4c6281fb0cd9495a4f67"
+                  src="https://www.loom.com/embed/73f28bed87d548fcbc5ab742a90e1ce6"
                   frameBorder="0"
                   allowFullScreen
                   className="w-full h-full rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/73f28bed87d548fcbc5ab742a90e1ce6?sid=3bba513d-5a61-4af5-9dbb-a65988e5393c" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
+                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
+                    e.currentTarget.parentNode.appendChild(fallback);
+                  }}
                 ></iframe>
               </div>
             </div>
@@ -118,10 +132,17 @@ const DownloadStep: React.FC = () => {
           <h3 className="font-semibold text-lg mb-2">Paso 2: Cómo importar tus contactos y la info que necesites</h3>
           <div className="aspect-video w-full">
             <iframe
-              src="https://www.loom.com/share/359f66e0144f4c6281fb0cd9495a4f78"
-              frameBorder="0"
-              allowFullScreen
-              className="w-full h-full rounded-lg"
+            src="https://www.loom.com/embed/bb28dc8b307544f184815e9b0be0f474"
+            frameBorder="0"
+            allowFullScreen
+            className="w-full h-full rounded-lg"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/bb28dc8b307544f184815e9b0be0f474?sid=7454a4bd-26ef-454c-8b69-d4e90ec6c6dd" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
+                fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
+                e.currentTarget.parentNode.appendChild(fallback);
+              }}
             ></iframe>
           </div>
         </div>
