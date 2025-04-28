@@ -296,7 +296,7 @@ const QRCodeStep: React.FC = () => {
             <LoadingSpinner />
           </div>
         ) : (
-          <>
+          <div>
             <div className="border-4 border-gold p-4 rounded-lg animate-cook relative bg-white shadow-lg">
               <div className="relative">
                 <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-terracotta"></div>
@@ -311,6 +311,7 @@ const QRCodeStep: React.FC = () => {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-2 border-terracotta flex items-center justify-center">
                   <span className="text-terracotta font-bold text-xl">WA</span>
                 </div>
+              </div>
               
               {/* Mensaje de QR recién renovado */}
               {qrJustRefreshed && (
@@ -339,7 +340,7 @@ const QRCodeStep: React.FC = () => {
                 Si acabaste de intentar leer el QR y no funcionó, espera un momento para el siguiente código.
               </p>
             )}
-          </>
+          </div>
         )}
       </div>
       
