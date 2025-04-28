@@ -1,8 +1,10 @@
 /* src/components/steps/QRCodeStep.tsx */
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { QrCode, Clock, RefreshCw, CheckCircle, AlertCircle, ArrowDown, Info } from 'lucide-react';
+import { QrCode, Clock, RefreshCw, CheckCircle, AlertCircle, ArrowDown, Info, Smartphone, Camera, Ban, CheckCircle2 } from 'lucide-react';
 import LoadingSpinner from '../ui/LoadingSpinner';
+import { OptimizedVideo } from '../ui/VideoPlayer';
+import { Tooltip } from '../ui/Tooltip';
 import axios from 'axios';
 
 const QRCodeStep: React.FC = () => {
@@ -209,12 +211,40 @@ const QRCodeStep: React.FC = () => {
           : 'Sigue estos pasos para vincular tu WhatsApp'}
       </h2>
       
+      {/* Banner de advertencia destacado */}
+      {!isLoading && (
+        <div className="w-full mb-6 border-2 border-red-500 rounded-lg p-3 sm:p-4 bg-red-50 shadow-md">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <AlertCircle className="text-red-500 h-5 sm:h-6 w-5 sm:w-6" />
+            <h3 className="text-center font-bold text-red-700 text-base sm:text-lg">¡IMPORTANTE!</h3>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 mb-2 sm:mb-0">
+              <Ban className="text-red-500 h-5 w-5 flex-shrink-0" />
+              <p className="font-medium text-red-700 text-sm sm:text-base">NO uses la cámara normal</p>
+              <Tooltip 
+                text="Si usas la cámara normal del teléfono, el código QR no funcionará. Debes escanearlo desde la aplicación de WhatsApp."
+                position="bottom"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="text-green-600 h-5 w-5 flex-shrink-0" />
+              <p className="font-medium text-green-700 text-sm sm:text-base">SÍ usa WhatsApp ➡️ Dispositivos vinculados</p>
+              <Tooltip 
+                text="Abre WhatsApp, ve a Menú (los tres puntos) > Dispositivos vinculados > Vincular un dispositivo."
+                position="bottom"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Instrucciones y videos primero */}
       {!isLoading && (
         <div className="w-full space-y-6 mb-6 border-gold border rounded-lg p-4 bg-cream/30">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Info className="text-gold h-5 w-5" />
-            <p className="text-center font-medium">Paso 1: Lee el código QR con tu teléfono siguiendo estas instrucciones</p>
+            <p className="text-center font-medium">Paso 1: Lee el código QR con WhatsApp siguiendo estas instrucciones</p>
           </div>
           
           {/* Video iPhone */}
@@ -223,21 +253,11 @@ const QRCodeStep: React.FC = () => {
               <span className="bg-gold/20 text-gold text-sm font-bold rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">1</span>
               iPhone
             </h3>
-            <div className="aspect-video w-full">
-              <iframe
-                src="https://www.loom.com/embed/aeab6cfec18445a7af93eca530846f94"
-                frameBorder="0"
-                allowFullScreen
-                className="w-full h-full rounded-lg"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fallback = document.createElement('div');
-                  fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/aeab6cfec18445a7af93eca530846f94" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
-                  fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
-                  e.currentTarget.parentNode.appendChild(fallback);
-                }}
-              ></iframe>
-            </div>
+            <OptimizedVideo 
+              src="https://www.loom.com/embed/aeab6cfec18445a7af93eca530846f94" 
+              title="Tutorial iPhone"
+              loomShareUrl="https://www.loom.com/share/aeab6cfec18445a7af93eca530846f94"
+            />
           </div>
 
           {/* Video Android */}
@@ -246,21 +266,11 @@ const QRCodeStep: React.FC = () => {
               <span className="bg-gold/20 text-gold text-sm font-bold rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">1</span>
               Android
             </h3>
-            <div className="aspect-video w-full">
-              <iframe
-                src="https://www.loom.com/embed/1502e1a0acb34477a0886c4684eeff57"
-                frameBorder="0"
-                allowFullScreen
-                className="w-full h-full rounded-lg"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fallback = document.createElement('div');
-                  fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/1502e1a0acb34477a0886c4684eeff57" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
-                  fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
-                  e.currentTarget.parentNode.appendChild(fallback);
-                }}
-              ></iframe>
-            </div>
+            <OptimizedVideo 
+              src="https://www.loom.com/embed/1502e1a0acb34477a0886c4684eeff57" 
+              title="Tutorial Android"
+              loomShareUrl="https://www.loom.com/share/1502e1a0acb34477a0886c4684eeff57"
+            />
           </div>
           
           <div className="flex items-center justify-center">
@@ -269,8 +279,13 @@ const QRCodeStep: React.FC = () => {
           
           <div className="flex items-center justify-center gap-2 mb-2">
             <Info className="text-gold h-5 w-5" />
-            <p className="text-center font-medium">Paso 2: Escanea este código QR con tu teléfono</p>
+            <p className="text-center font-medium">Paso 2: Escanea este código QR con WhatsApp ➡️ Dispositivos vinculados</p>
+            <Tooltip 
+              text="Abre WhatsApp, ve a Configuración > Dispositivos vinculados > Vincular un dispositivo. Luego escanea este código."
+              position="top"
+            />
           </div>
+          <p className="text-center text-brown/80 text-sm italic">Recuerda: No uses la cámara normal de tu teléfono, debes abrir WhatsApp</p>
         </div>
       )}
 
@@ -282,12 +297,20 @@ const QRCodeStep: React.FC = () => {
           </div>
         ) : (
           <>
-            <div className="border-4 border-gold p-2 rounded-lg animate-cook relative">
-              <img
-                src={formatQrCode(currentQrCode)}
-                alt="QR Code"
-                className="h-64 w-64"
-              />
+            <div className="border-4 border-gold p-4 rounded-lg animate-cook relative bg-white shadow-lg">
+              <div className="relative">
+                <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-terracotta"></div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-terracotta"></div>
+                <div className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-terracotta"></div>
+                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-terracotta"></div>
+                <img
+                  src={formatQrCode(currentQrCode)}
+                  alt="QR Code"
+                  className="h-64 w-64 rounded p-2"
+                />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-2 border-terracotta flex items-center justify-center">
+                  <span className="text-terracotta font-bold text-xl">WA</span>
+                </div>
               
               {/* Mensaje de QR recién renovado */}
               {qrJustRefreshed && (
@@ -320,11 +343,20 @@ const QRCodeStep: React.FC = () => {
         )}
       </div>
       
-      {/* Nota informativa */}
+      {/* Nota informativa mejorada */}
       <div className="w-full bg-cream/50 rounded-lg p-3 border border-gold/30 mt-2 mb-4">
         <p className="text-sm text-center text-brown/80">
           <Info className="inline h-4 w-4 mr-1 text-gold" />
-          Renovamos el código QR cada 30 segundos para asegurar la mejor experiencia. Si has escaneado el código correctamente, avanzarás automáticamente.
+          Renovamos el código QR cada 30 segundos para asegurar la mejor experiencia.
+        </p>
+        <p className="text-sm font-bold text-center text-brown mt-2 bg-yellow-100 p-2 rounded">
+          <CheckCircle className="inline h-4 w-4 mr-1 text-green-600" />
+          Una vez escaneado correctamente, avanzarás automáticamente al siguiente paso.
+          <Tooltip 
+            text="No necesitas presionar ningún botón. El sistema detectará automáticamente cuando hayas escaneado el código y te llevará al siguiente paso."
+            position="bottom"
+            className="ml-1"
+          />
         </p>
       </div>
     </div>

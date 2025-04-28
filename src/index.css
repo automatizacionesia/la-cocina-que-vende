@@ -10,6 +10,11 @@
   --color-sage: #84A59D;
 }
 
+.dark {
+  --color-cream: #2D2D2D;
+  --color-brown: #E8E8E8;
+}
+
 @layer base {
   html {
     font-family: 'Open Sans', system-ui, sans-serif;
@@ -42,8 +47,8 @@
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-lg p-8 w-full max-w-md mx-auto
-    border border-gold/20;
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 w-full max-w-md mx-auto
+    border border-gold/20 dark:border-gold/10 transition-colors duration-300;
   }
 
   .card-title {
@@ -121,4 +126,27 @@
   background-color: var(--color-terracotta);
   transition: width 0.5s ease-in-out;
   border-radius: 999px;
+}
+
+/* Animaciones de transición entre pasos */
+.fade-slide-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.fade-slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-slide-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 300ms, transform 300ms;
 }

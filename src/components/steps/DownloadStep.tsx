@@ -7,8 +7,10 @@ const DownloadStep: React.FC = () => {
   const { restaurantName, setDownloadStarted, downloadStarted } = useAppContext();
   const [showBackupButton, setShowBackupButton] = useState(false);
   
-  // Activar confetti al cargar el componente y configurar el timer para el botón de respaldo
+  // Activar confetti al cargar el componente, resetear scroll y configurar el timer para el botón de respaldo
   useEffect(() => {
+    // Mover scroll al inicio de la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (!downloadStarted) {
       setDownloadStarted(true);
     }
@@ -35,20 +37,25 @@ const DownloadStep: React.FC = () => {
 
   // Función para descargar manualmente el archivo
   const downloadManually = () => {
+    // Mostrar indicador de carga en el botón
+    const button = document.getElementById('backup-download-btn');
+    if (button) {
+      button.classList.add('opacity-70');
+      button.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-brown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Descargando...';
+    }
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     // Usar el nuevo webhook verificarx2 con solo el parámetro de instancia
     iframe.src = `https://webhook.lacocinaquevende.com/webhook/verificarx2?instance=${localStorage.getItem('instance') || ''}`;
     document.body.appendChild(iframe);
     
-    // Limpiar el iframe después de un tiempo
     setTimeout(() => {
-      try {
-        document.body.removeChild(iframe);
-      } catch (e) {
-        // Ignorar errores de limpieza
+      // Restaurar el botón después de un tiempo
+      if (button) {
+        button.classList.remove('opacity-70');
+        button.innerHTML = '<svg class="-ml-1 mr-2 h-4 w-4 text-brown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Descargar contactos';
       }
-    }, 60000); // 1 minuto
+    }, 5000); // 5 segundos
   };
 
   return (
@@ -73,6 +80,7 @@ const DownloadStep: React.FC = () => {
       {/* Botón de respaldo que aparece después de 10 segundos */}
       {showBackupButton && (
         <button 
+          id="backup-download-btn"
           onClick={downloadManually} 
           className="bg-sage/20 border border-sage text-brown/80 font-medium py-2 px-4 rounded-lg mb-6 flex items-center justify-center hover:bg-sage/30 transition-colors"
         >
@@ -85,44 +93,26 @@ const DownloadStep: React.FC = () => {
         Mientras esperas, sigue los pasos de aquí abajo para continuar:
       </p>
 
-      <div className="w-full space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
           <h3 className="font-semibold text-lg mb-2">Paso 1: Borrar WhatsApp</h3>
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-medium mb-2">iPhone</h4>
-              <div className="aspect-video w-full">
-                <iframe
-                  src="https://www.loom.com/embed/44ab211e65ca4cb2ba2ae2f4a79ea8a6"
-                  frameBorder="0"
-                  allowFullScreen
-                  className="w-full h-full rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const fallback = document.createElement('div');
-                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/44ab211e65ca4cb2ba2ae2f4a79ea8a6" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
-                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
-                    e.currentTarget.parentNode.appendChild(fallback);
-                  }}
-                ></iframe>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="w-full sm:w-1/2">
+                <h4 className="font-medium mb-2">iPhone</h4>
+                <OptimizedVideo 
+                  src="https://www.loom.com/embed/44ab211e65ca4cb2ba2ae2f4a79ea8a6" 
+                  title="Tutorial borrar WhatsApp iPhone"
+                  loomShareUrl="https://www.loom.com/share/44ab211e65ca4cb2ba2ae2f4a79ea8a6"
+                />
               </div>
-            </div>
-            <div>
-              <h4 className="font-medium mb-2">Android</h4>
-              <div className="aspect-video w-full">
-                <iframe
-                  src="https://www.loom.com/embed/73f28bed87d548fcbc5ab742a90e1ce6"
-                  frameBorder="0"
-                  allowFullScreen
-                  className="w-full h-full rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const fallback = document.createElement('div');
-                    fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/73f28bed87d548fcbc5ab742a90e1ce6?sid=3bba513d-5a61-4af5-9dbb-a65988e5393c" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
-                    fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
-                    e.currentTarget.parentNode.appendChild(fallback);
-                  }}
-                ></iframe>
+              <div className="w-full sm:w-1/2">
+                <h4 className="font-medium mb-2">Android</h4>
+                <OptimizedVideo 
+                  title="Tutorial borrar WhatsApp Android"
+                  src="https://www.loom.com/embed/73f28bed87d548fcbc5ab742a90e1ce6" 
+                  loomShareUrl="https://www.loom.com/share/73f28bed87d548fcbc5ab742a90e1ce6?sid=3bba513d-5a61-4af5-9dbb-a65988e5393c"
+                />
               </div>
             </div>
           </div>
@@ -130,21 +120,11 @@ const DownloadStep: React.FC = () => {
 
         <div>
           <h3 className="font-semibold text-lg mb-2">Paso 2: Cómo importar tus contactos y la info que necesites</h3>
-          <div className="aspect-video w-full">
-            <iframe
-            src="https://www.loom.com/embed/bb28dc8b307544f184815e9b0be0f474"
-            frameBorder="0"
-            allowFullScreen
-            className="w-full h-full rounded-lg"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                const fallback = document.createElement('div');
-                fallback.innerHTML = 'No se pudo cargar el video. <a href="https://www.loom.com/share/bb28dc8b307544f184815e9b0be0f474?sid=7454a4bd-26ef-454c-8b69-d4e90ec6c6dd" target="_blank" rel="noopener noreferrer" class="text-terracotta underline">Ver en Loom</a>';
-                fallback.className = 'p-4 border border-gold bg-cream text-brown rounded-lg text-center';
-                e.currentTarget.parentNode.appendChild(fallback);
-              }}
-            ></iframe>
-          </div>
+          <OptimizedVideo 
+            src="https://www.loom.com/embed/bb28dc8b307544f184815e9b0be0f474" 
+            title="Tutorial importar contactos"
+            loomShareUrl="https://www.loom.com/share/bb28dc8b307544f184815e9b0be0f474?sid=7454a4bd-26ef-454c-8b69-d4e90ec6c6dd"
+          />
         </div>
       </div>
     </div>

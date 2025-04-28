@@ -1,0 +1,68 @@
+NOTAS TÉCNICAS - LA COCINA QUE VENDE (EXPORTADOR DE CONTACTOS)
+=================================================================
+
+DESCRIPCIÓN GENERAL:
+-------------------
+Aplicación desarrollada para La Cocina que Vende que permite exportar contactos de WhatsApp
+mediante un proceso de tres pasos con código QR autorrenovable y descarga automática de CSV.
+
+PUNTOS CLAVE DEL PROYECTO:
+-------------------------
+1. ESTRUCTURA DEL FLUJO:
+   - Paso 1: WelcomeStep - Ingresar nombre del restaurante
+   - Paso 2: QRCodeStep - Escanear QR con verificación automática
+   - Paso 3: DownloadStep - Descarga automática de contactos
+
+2. CARACTERÍSTICAS CRÍTICAS:
+   - Verificación automática del QR cada 30 segundos
+   - Renovación automática del QR si no ha sido escaneado
+   - Transición automática al siguiente paso cuando se escanea correctamente
+   - Descarga automática con sistema de respaldo
+
+3. WEBHOOKS:
+   - /crearqr - Genera QR inicial (POST)
+   - /validarestadoqr - Verifica estado y actualiza QR (POST)
+   - /verificar - Descarga contactos (POST/GET)
+   - /verificarx2 - Webhook alternativo para descarga manual (GET)
+
+4. UBICACIONES CLAVE DE ARCHIVOS:
+   - QRCodeStep.tsx: src/components/steps/QRCodeStep.tsx
+   - DownloadStep.tsx: src/components/steps/DownloadStep.tsx
+   - AppContext.tsx: src/context/AppContext.tsx
+   - Videos de Loom: Enlaces incrustados en QRCodeStep y DownloadStep
+
+NOTAS SOBRE EL SOLICITANTE:
+--------------------------
+Juan Diego Díaz, desarrollador del proyecto, tiene un estilo de trabajo muy específico:
+
+- Solicita cambios puntuales con gran detalle técnico
+- Prioriza la experiencia de usuario y la funcionalidad automática
+- Prefiere soluciones robustas con múltiples capas de respaldo
+- Valora la claridad visual y mensajes informativos para guiar al usuario
+- Tiende a anticipar problemas potenciales y busca implementar soluciones preventivas
+- Mantiene una visión clara del proyecto y su evolución
+
+POSIBLES MEJORAS FUTURAS:
+------------------------
+1. Implementar sistema de analítica para rastrear tasas de conversión
+2. Mejorar el manejo de errores de red
+3. Añadir soporte para diferentes tipos de exportación
+4. Implementar sistema de notificaciones por correo electrónico
+5. Mejorar la accesibilidad para usuarios con discapacidades
+
+CONSIDERACIONES IMPORTANTES:
+---------------------------
+- El QR se actualiza automáticamente para mantener vigencia
+- La aplicación NO requiere interacción manual para avanzar entre pasos
+- El diseño usa una paleta específica (terracotta, gold, cream, brown, sage)
+- Los mensajes informativos son cruciales para orientar al usuario
+- Los videos tutoriales son clave para el éxito del proceso
+
+INFORMACIÓN DE CONTACTO:
+-----------------------
+Desarrollador: Juan Diego Díaz
+Soporte: +573147746150 (WhatsApp)
+Cliente: La Cocina que Vende
+
+=========================================================================
+Documento preparado el 28 de abril de 2025 como guía para futuros desarrolladores

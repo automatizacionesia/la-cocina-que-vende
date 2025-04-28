@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { ChefHat } from 'lucide-react';
 import axios from 'axios';
@@ -8,6 +8,28 @@ const WelcomeStep: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  
+  // Mensajes dinámicos relacionados con cocina y restaurantes
+  const loadingMessages = [
+    "Preparando los ingredientes...",
+    "Calentando el horno...",
+    "Amasando la base perfecta...",
+    "Añadiendo un toque de sabor...",
+    "Generando conexiones culinarias...",
+    "Sirviendo tu experiencia gourmet..."
+  ];
+  
+  // Efecto para rotar los mensajes mientras carga
+  useEffect(() => {
+    if (!isLoading) return;
+    
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+    }, 2000); // Cambiar mensaje cada 2 segundos
+    
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +102,7 @@ const WelcomeStep: React.FC = () => {
           className={`btn-primary w-full ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
           disabled={isLoading}
         >
-          {isLoading ? 'Procesando...' : 'Continuar'}
+          {isLoading ? loadingMessages[currentMessageIndex] : 'Continuar'}
         </button>
       </form>
     </div>
