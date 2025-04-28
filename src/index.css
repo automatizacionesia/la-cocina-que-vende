@@ -10,11 +10,6 @@
   --color-sage: #84A59D;
 }
 
-.dark {
-  --color-cream: #2D2D2D;
-  --color-brown: #E8E8E8;
-}
-
 @layer base {
   html {
     font-family: 'Open Sans', system-ui, sans-serif;
@@ -47,8 +42,8 @@
   }
 
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 w-full max-w-md mx-auto
-    border border-gold/20 dark:border-gold/10 transition-colors duration-300;
+    @apply bg-white rounded-xl shadow-lg p-8 w-full max-w-md mx-auto
+    border border-gold/20 transition-colors duration-300;
   }
 
   .card-title {

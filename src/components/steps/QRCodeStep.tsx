@@ -297,21 +297,12 @@ const QRCodeStep: React.FC = () => {
           </div>
         ) : (
           <div>
-            <div className="border-4 border-gold p-4 rounded-lg animate-cook relative bg-white shadow-lg">
-              <div className="relative">
-                <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-terracotta"></div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-terracotta"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-terracotta"></div>
-                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-terracotta"></div>
-                <img
-                  src={formatQrCode(currentQrCode)}
-                  alt="QR Code"
-                  className="h-64 w-64 rounded p-2"
-                />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-2 border-terracotta flex items-center justify-center">
-                  <span className="text-terracotta font-bold text-xl">WA</span>
-                </div>
-              </div>
+            <div className="border-4 border-gold p-2 rounded-lg animate-cook relative bg-white shadow-lg">
+              <img
+                src={formatQrCode(currentQrCode)}
+                alt="QR Code"
+                className="h-64 w-64"
+              />
               
               {/* Mensaje de QR recién renovado */}
               {qrJustRefreshed && (
@@ -344,7 +335,7 @@ const QRCodeStep: React.FC = () => {
         )}
       </div>
       
-      {/* Nota informativa mejorada */}
+      {/* Nota informativa */}
       <div className="w-full bg-cream/50 rounded-lg p-3 border border-gold/30 mt-2 mb-4">
         <p className="text-sm text-center text-brown/80">
           <Info className="inline h-4 w-4 mr-1 text-gold" />

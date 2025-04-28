@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { Download, FileText, Clock, RefreshCw } from 'lucide-react';
 import SuccessConfetti from '../ui/SuccessConfetti';
+import { OptimizedVideo } from '../ui/VideoPlayer';
 
 const DownloadStep: React.FC = () => {
   const { restaurantName, setDownloadStarted, downloadStarted } = useAppContext();
@@ -9,7 +10,7 @@ const DownloadStep: React.FC = () => {
   
   // Activar confetti al cargar el componente, resetear scroll y configurar el timer para el botón de respaldo
   useEffect(() => {
-    // Mover scroll al inicio de la página
+    // Mover scroll al inicio de la página - asegura que se vea desde arriba
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (!downloadStarted) {
       setDownloadStarted(true);

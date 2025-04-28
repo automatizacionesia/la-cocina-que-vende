@@ -14,7 +14,6 @@ const StepLoading = () => (
   </div>
 );
 import StepIndicator from './ui/StepIndicator';
-import ThemeToggle from './ui/ThemeToggle';
 import { CookingPot, Heart } from 'lucide-react';
 
 const ExportWizard: React.FC = () => {
@@ -61,9 +60,6 @@ const ExportWizard: React.FC = () => {
           Hecho con <Heart className="h-3 w-3 mx-1 text-terracotta fill-terracotta" /> por Juan Diego Diaz para La Cocina que Vende
         </p>
       </div>
-
-      {/* Botón para cambiar tema */}
-      <ThemeToggle />
     </div>
   );
 };
